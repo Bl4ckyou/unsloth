@@ -1,17 +1,20 @@
-# Studio: discoverable, per-section sidebar multi-select
+# Studio: surface the existing sidebar multi-select per section
 
-## Related
-- Related to #7116 (multi-select delete in Recents). Bulk chat actions already landed in #7384 / #8745; this PR makes them discoverable rather than hidden behind `Cmd/Ctrl+Click` and the context menu.
+## Why
+
+The sidebar already supports multi-select through `Cmd/Ctrl+Click`, `Shift+Click`, and the row context menu, and bulk actions already exist. This PR only makes that discoverable: a checkbox in the **Pinned** and **Recents** headers starts a selection for that section, and a floating bar exposes the same bulk actions.
+
+This builds on the merged bulk chat work in #8745 and the sidebar selection from #8932. It does not add a new destructive path or a separate management page.
 
 ## What changed
 
-- Adds a checkbox toggle to the **Pinned** and **Recents** headers. Plain clicks then toggle rows, and a floating bar exposes select all, pin/unpin, archive, delete, and clear.
-- Selection is scoped to the header that started it. Pinned never selects Recents and vice versa; opening a chat from the other section keeps the current selection.
-- **Select all** is a toggle: a second click deselects the section. Pinned selections show **Unpin**.
-- Bulk delete now uses the existing `deleteChatItems` batch path: one request for the whole selection instead of one call per chat.
-- The Pinned title now uses `shell.navigation.pinned`, with translations added for every locale along with the new selection labels.
+- Checkbox toggle in **Pinned** and **Recents**: plain clicks then toggle rows, and the floating bar exposes select all, pin/unpin, archive, delete, and clear.
+- Selection is scoped to the header that started it. Opening a chat from the other section keeps the current selection.
+- **Select all** toggles off on a second click. Pinned selections show **Unpin**.
+- Bulk delete uses the existing `deleteChatItems` batch path: one request for the whole selection instead of one per chat.
+- The Pinned title now uses `shell.navigation.pinned`, with all new labels translated in every locale.
 
-`selectionSection` already records the active section, and `handleProjectSelectionClick` accepts it, so adding the same mode to Projects later is mostly wiring a header toggle.
+`selectionSection` already records the active section, so the same mode can be extended to Projects later without reworking the selection model.
 
 ## Screenshots
 
