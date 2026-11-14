@@ -4,7 +4,7 @@
 
 The sidebar already supports multi-select through `Cmd/Ctrl+Click`, `Shift+Click`, and the row context menu, and bulk actions already exist. This PR only makes that discoverable: a checkbox in the **Pinned** and **Recents** headers starts a selection for that section, and a floating bar exposes the same bulk actions.
 
-This builds on the merged bulk chat work in #8745 and the sidebar selection from #8932. It does not add a new destructive path or a separate management page.
+This builds on the merged bulk chat work in #8745, the sidebar selection from #8932, and the Recents "Delete all chats" action from #13779. It does not add a new destructive path or a separate management page; select-all is scoped to Pinned or Recents, while Delete all remains the global action in the menu.
 
 ## What changed
 
